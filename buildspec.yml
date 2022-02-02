@@ -13,11 +13,11 @@ phases:
   build:
     commands:
       - echo "Zipping deployment package..."
-      - zip -g dep_package.zip lambda_function.py
+      - zip -g deployment_package.zip lambda_function.py
   post_build:
     commands:
       - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name pandas-test --zip-file fileb://dep_package.zip
+      - aws lambda update-function-code --function-name pandas-test --zip-file fileb://deployment_package.zip
       - aws lambda wait function-updated --function-name arn:aws:lambda:us-east-1:336369920320:function:pandas-test
       - aws lambda update-function-configuration --function-name pandas-test --layers arn:aws:lambda:us-east-1:336369920320:layer:test-pandas:20
       - aws lambda wait function-updated --function-name arn:aws:lambda:us-east-1:336369920320:function:pandas-test
